@@ -9,6 +9,7 @@ public class ScoreScript : MonoBehaviour {
 	void OnTriggerEnter(Collider c){
 		Debug.Log ("Trigger " + gameObject.name + " detected " + c.gameObject.name);
 		detected = true;
+		ScoreKeeper.registerScore (gameObject);
 	}
 
 	public void reset (){
