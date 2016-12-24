@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class ScoreKeeper : MonoBehaviour {
 
+	static int score = 0;
+
+	public void registerScore(GameObject scoringHole){
+		score += 50;
+	}
+
 	// Use this for initialization
 	void Start () {
 		
