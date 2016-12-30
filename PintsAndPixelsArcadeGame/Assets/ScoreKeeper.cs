@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreKeeper : MonoBehaviour {
-
+	
 	public GameObject lever;
 	public Text scoreLabel;
 	public Text ballLabel;
@@ -14,7 +14,6 @@ public class ScoreKeeper : MonoBehaviour {
 	static Text _ballLabel;
 	static int _ballCt = 3;
 
-
 	static int score = 0;
 	static List<GameObject> registeredTargets = new List<GameObject> ();
 	static bool scored = false;
@@ -22,8 +21,8 @@ public class ScoreKeeper : MonoBehaviour {
 	static Quaternion initRot;
 
 
-	public static void registerScore(GameObject scoringHole){
-		score += 50;
+	public static void registerScore(GameObject scoringHole, int value){
+		score += value;
 		scored = true;
 		registeredTargets.Add (scoringHole);
 		scored = true;
@@ -31,14 +30,16 @@ public class ScoreKeeper : MonoBehaviour {
 	}
 
 	public static void registerBallDrop(GameObject ball){
-		
+		Debug.Log ("registerBallDrop");
 		if (scored)
 			reset (ball);
 		else {
 			_ballCt--;
 			_ballLabel.text = _ballCt.ToString ();
-			if(_ballCt<0)
+			if(_ballCt<1)
 				gameOver (ball);
+			else
+				reset (ball);
 		}
 		scored = false;
 	}
@@ -53,6 +54,11 @@ public class ScoreKeeper : MonoBehaviour {
 	public static void gameOver (GameObject ball){
 		Destroy (ball);
 		// go to end screen
+		GameObject.Find("LevelManager").GetComponent<LevelManager>().loadLevel("gameOver");
+	}
+
+	public static int getScore(){
+		return score;
 	}
 
 	// Use this for initialization
